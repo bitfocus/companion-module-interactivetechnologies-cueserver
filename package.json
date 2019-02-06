@@ -1,0 +1,14 @@
+{
+  "name": "cueserver",
+  "version": "1.0.0",
+  "description": "Control and send commands to Interactive Technologies CueServer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Lighting"
+  ],
+  "author": "Joseph Adams <josephdadams@gmail.com>",
+  "license": "MIT"
+}
