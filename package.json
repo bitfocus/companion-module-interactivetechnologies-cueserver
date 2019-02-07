@@ -15,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bitfocus/companion-module-cueserver.git"
+    "url": "git+https://github.com/bitfocus/companion-module-interactive-technologies-cueserver.git"
   },
   "author": "Joseph Adams <josephdadams@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bitfocus/companion-module-cueserver/issues"
+    "url": "https://github.com/bitfocus/companion-module-interactive-technologies-cueserver/issues"
   },
-  "homepage": "https://github.com/bitfocus/companion-module-cueserver#readme"
+  "homepage": "https://github.com/bitfocus/companion-module-interactive-technologies-cueserver#readme"
 }
