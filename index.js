@@ -1,5 +1,4 @@
 // Interactive Technologies CueServer
-
 var udp           = require('../../udp');
 var instance_skel = require('../../instance_skel');
 var debug;
@@ -27,14 +26,14 @@ instance.prototype.updateConfig = function(config) {
 	}
 
 	self.config = config;
-    
+
 	if (self.config.protocol == 'http') {
 		self.init_http();
-	};
-    
+	}
+
 	if (self.config.protocol == 'udp') {
 		self.init_udp();
-	};
+	}
 };
 
 instance.prototype.init = function() {
@@ -46,17 +45,17 @@ instance.prototype.init = function() {
 
 	if (self.config.protocol == 'http') {
 		self.init_http();
-	};
-    
+	}
+
 	if (self.config.protocol == 'udp') {
 		self.init_udp();
-	};
-};
+	}
+}
 
 instance.prototype.init_http = function() {
-    var self = this;
-    
-    self.status(self.STATE_OK);
+	var self = this;
+
+	self.status(self.STATE_OK);
 
 	debug = self.debug;
 	log = self.log;
@@ -115,7 +114,7 @@ instance.prototype.config_fields = function () {
 			]
 		}
 	]
-};
+}
 
 // When module gets deleted
 instance.prototype.destroy = function() {
@@ -126,7 +125,7 @@ instance.prototype.destroy = function() {
 	}
 
 	debug("destroy", self.id);
-};
+}
 
 instance.prototype.init_presets = function () {
 	var self = this;
@@ -138,30 +137,30 @@ instance.prototype.init_presets = function () {
 instance.prototype.actions = function(system) {
 	var self = this;
 
-	self.system.emit('instance_actions', self.id, {
-        'cuescript': {
-            label: 'CueScript',
-            options: [{
-                type: 'textinput',
-                label: 'Custom Cue Script',
-                id: 'script',
-                default: '',
-                tooltip: 'You can enter a custom CueScript here.'
-            }]
-        },
-        'audio': {
-            label: 'Audio',
-            options: [{
-                type: 'textinput',
-                label: 'Audio File to Play',
-                id: 'audiofile',
-                default: '',
-                tooltip: 'Type in a audio file name for the CueServer to play out.'
-            }]
-        },
-        'audiostop': {
-          label: 'Audio Stop'
-        },
+	self.setActions({
+		'cuescript': {
+			label: 'CueScript',
+			options: [{
+				type: 'textinput',
+				label: 'Custom Cue Script',
+				id: 'script',
+				default: '',
+				tooltip: 'You can enter a custom CueScript here.'
+			}]
+		},
+		'audio': {
+			label: 'Audio',
+			options: [{
+				type: 'textinput',
+				label: 'Audio File to Play',
+				id: 'audiofile',
+				default: '',
+				tooltip: 'Type in a audio file name for the CueServer to play out.'
+			}]
+		},
+		'audiostop': {
+			label: 'Audio Stop'
+		},
 		'cue': {
 			label: 'Cue',
 			options: [{
@@ -169,34 +168,34 @@ instance.prototype.actions = function(system) {
 				label:  'Cue Number',
 				id:     'cuenumber',
 				default: '1',
-                regex: '/^[0-999]$/'
-            }]
+				regex: '/^[0-999]$/'
+			}]
 		},
-        'macro': {
-            label: 'Macro',
-            options: [{
-                type: 'textinput',
-                label: 'Macro Number',
-                id: 'macronumber',
-                default: '1',
-                regex: '/^[0-999]$/'
-            }]
-        },        
-        'playback': {
-            label: 'Playback',
-            options: [{
-                type: 'textinput',
-                label: 'Playback Number',
-                id: 'playbacknumber',
-                default: '1',
-                regex: '/^[0-999]$/'
-            }]
-        },
-        'reboot': {
-            label: 'Reboot'
-        }
+		'macro': {
+			label: 'Macro',
+			options: [{
+				type: 'textinput',
+				label: 'Macro Number',
+				id: 'macronumber',
+				default: '1',
+				regex: '/^[0-999]$/'
+			}]
+		},
+		'playback': {
+			label: 'Playback',
+			options: [{
+				type: 'textinput',
+				label: 'Playback Number',
+				id: 'playbacknumber',
+				default: '1',
+				regex: '/^[0-999]$/'
+			}]
+		},
+		'reboot': {
+			label: 'Reboot'
+		}
 	});
-};
+}
 
 instance.prototype.action = function(action) {
 	var self = this;
@@ -204,15 +203,15 @@ instance.prototype.action = function(action) {
 	var opt = action.options;
 
 	switch(action.action) {
-        case 'cuescript':
-            cmd = opt.script;
-            break;
-        case 'audio':
-            cmd = 'Audio ' + opt.audiofile;
-            break;
-        case 'audiostop':
-            cmd = 'Audio Stop';
-            break;
+		case 'cuescript':
+			cmd = opt.script;
+			break;
+		case 'audio':
+			cmd = 'Audio ' + opt.audiofile;
+			break;
+		case 'audiostop':
+			cmd = 'Audio Stop';
+			break;
 		case 'cue':
 			cmd = 'Cue ' + opt.cuenumber;
 			break;
@@ -226,31 +225,32 @@ instance.prototype.action = function(action) {
 			cmd = 'Reboot';
 			break;
 	}
-    
+
 	if (self.config.protocol == 'http') {
 		if (cmd !== undefined) {
-            var url = 'http://' + self.config.host + ':80/exe.cgi?cmd=' + cmd;
+			var url = 'http://' + self.config.host + ':80/exe.cgi?cmd=' + cmd;
+
 			self.system.emit('rest_get', url, function (err, result) {
-                if (err !== null) {
-                    self.log('error', 'HTTP GET Request failed (' + result.error.code + ')');
-                    self.status(self.STATUS_ERROR, result.error.code);
-                }
-                else {
-                    self.status(self.STATUS_OK);
-                }
-		    });
+				if (err !== null) {
+					self.log('error', 'HTTP GET Request failed (' + result.error.code + ')');
+					self.status(self.STATUS_ERROR, result.error.code);
+				}
+				else {
+					self.status(self.STATUS_OK);
+				}
+			});
 		}
 	}
 
 	if (self.config.protocol == 'udp') {
 		if (cmd !== undefined ) {
 			if (self.udp !== undefined ) {
-                debug('sending',cmd,"to",self.config.host);
+				debug('sending',cmd,"to",self.config.host);
 				self.udp.send(cmd);
 			}
 		}
-	};
-};
+	}
+}
 
 instance_skel.extendedBy(instance);
 exports = module.exports = instance;
