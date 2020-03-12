@@ -1,5 +1,8 @@
 {
-  "name": "interactive-technologies-cueserver",
+  "name": "interactivetechnologies-cueserver",
+	"legacy": [
+		"interactive-technologies-cueserver"
+	],
   "version": "1.0.1",
   "api_version": "1.0.0",
   "keywords": [

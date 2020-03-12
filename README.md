@@ -1,2 +1,2 @@
-# companion-module-interactive-technologies-cueserver
+# companion-module-interactivetechnologies-cueserver
 See HELP.md and LICENSE
