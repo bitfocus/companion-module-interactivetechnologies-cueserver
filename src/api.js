@@ -13,7 +13,7 @@ module.exports = {
 	init_udp: function() {
 		let self = this;
 	
-		if (self.udp !== undefined) {
+		if (self.udp !== undefined && self.udp !== null) {
 			self.udp.destroy();
 			delete self.udp;
 		}
@@ -80,7 +80,10 @@ module.exports = {
 			if (self.config.protocol == 'http') {
 				let client = new Client();
 
-				let url = 'http://' + self.config.host + ':80/exe.cgi?cmd=' + cmd;
+				// Encode the command
+				const encoded = new URLSearchParams({ cmd: cmd }).toString()
+
+				let url = 'http://' + self.config.host + ':80/exe.cgi?' + encoded;
 				
 				client.get(url, function (data, response) {
 					//do something with the response
@@ -96,7 +99,7 @@ module.exports = {
 			}
 		
 			if (self.config.protocol == 'udp') {
-				if (self.udp !== undefined ) {
+				if (self.udp !== undefined && self.udp !== null) {
 					self.udp.send(cmd);
 				}
 			}

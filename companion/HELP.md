@@ -5,7 +5,9 @@ This module will connect to any Interactive Technologies CueServer Device.
 **Available commands for CueServer**
 
 * Custom CueScripts, following the documentation here: <http://docs.interactive-online.com/cs2/?v=1.0&l=en>
+    * As of v2.0.1, CueScripts are automatically encoded when using HTTP protocol.
 * Play Audio Files, or Stop Audio
+    * As of v2.0.1, Extra quotes are no longer needed. Example: Chime.wav not "Chime.wav"
 * Cues
 * Macros
 * Playbacks
