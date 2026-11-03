@@ -27,11 +27,11 @@ module.exports = {
 					label: 'Audio File to Play',
 					id: 'audiofile',
 					default: '',
-					tooltip: 'Type in an audio file name for the CueServer to play out.'
+					description: 'Type in an audio file name for the CueServer to play out. Example: Chime.wav'
 				}
 			],
 			callback: async function (action) {
-				self.runCommand('Audio ' + action.options.audiofile);
+				self.runCommand(`Audio "${action.options.audiofile}"`);
 			}
 		}
 		
@@ -47,15 +47,14 @@ module.exports = {
 			name: 'Cue',
 			options: [
 				{
-					type:   'textinput',
+					type:   'number',
 					label:  'Cue Number',
 					id:     'cuenumber',
 					default: '1',
-					regex: '/^[0-999]$/'
 				}
 			],
 			callback: async function (action) {
-				self.runCommand('Cue ' + action.options.cuenumber);
+				self.runCommand(`Cue ${action.options.cuenumber} Go`);
 			}
 		}
 		
@@ -63,15 +62,14 @@ module.exports = {
 			name: 'Macro',
 			options: [
 				{
-					type: 'textinput',
+					type: 'number',
 					label: 'Macro Number',
 					id: 'macronumber',
-					default: '1',
-					regex: '/^[0-999]$/'
+					default: 1,
 				}
 			],
 			callback: async function (action) {
-				self.runCommand('Macro ' + action.options.macronumber);
+				self.runCommand(`Macro ${action.options.macronumber}`);
 			}
 		}
 		
@@ -79,15 +77,14 @@ module.exports = {
 			name: 'Playback',
 			options: [
 				{
-					type: 'textinput',
+					type: 'number',
 					label: 'Playback Number',
 					id: 'playbacknumber',
 					default: '1',
-					regex: '/^[0-999]$/'
 				}
 			],
 			callback: async function (action) {
-				self.runCommand('Playback ' + action.options.playbacknumber);
+				self.runCommand(`Playback ${action.options.playbacknumber}`);
 			}
 		}
 		

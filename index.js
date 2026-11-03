@@ -36,7 +36,7 @@ class cueserverInstance extends InstanceBase {
 			self.INTERVAL = null;
 		}
 
-		if (self.udp !== undefined) {
+		if (self.udp !== undefined && self.udp !== null) {
 			self.udp.destroy();
 		}
 	}
